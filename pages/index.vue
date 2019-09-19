@@ -3,103 +3,41 @@
     <div>
       <logo />
       <h4 class="title">
-        Bana Hatırlat
+        Nuxt + Vue
       </h4>
-      <h6 class="subtitle">
-        Hatırlatan uygulama
-      </h6>
       <div class="reminder-form">
-        <el-form
-          ref="reminderForm"
-          :model="reminderForm"
-          :rules="reminderFormRules"
-        >
-          <el-form-item label="Topic" prop="topic">
-            <el-input v-model="reminderForm.topic"> </el-input>
-          </el-form-item>
-
-          <el-form-item label="Detail">
-            <el-input
-              v-model="reminderForm.detail"
-              type="textarea"
-              :autosize="{ minRows: 3, maxRows: 7 }"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item label="Notification Type">
-            <el-radio-group v-model="reminderForm.notificationType">
-              <el-radio-button label="Email"></el-radio-button>
-              <el-radio-button label="SMS"></el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-
-          <el-form-item label="Phone Number" prop="phoneNumber">
-            <el-input v-model="reminderForm.phoneNumber"> </el-input>
-          </el-form-item>
-
-          <el-form-item label="Email address" prop="email">
-            <el-input v-model="reminderForm.email"> </el-input>
-          </el-form-item>
-
-          <el-form-item label="When to notify" prop="when">
-            <el-date-picker v-model="reminderForm.when"></el-date-picker>
-          </el-form-item>
-
-          <el-form-item>
-            <el-button class="block-btn" type="danger">
-              Remind me
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="links">
-        <nuxt-link
-          v-for="post in posts"
-          :key="post.id"
-          :to="{ name: 'posts-id', params: { id: post.id } }"
-          class="button--grey"
-        >
-          {{ post.title }}
-        </nuxt-link>
+        <el-button class="block-btn" type="danger" @click="login">
+          Login
+        </el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {
-  validateEmail,
-  validatePhoneNumber,
-  validateTopic,
-  validateWhen
-} from '../static/validators.js'
 import Logo from '~/components/Logo.vue'
 
 export default {
+  auth: false,
   components: {
     Logo
   },
   data() {
-    return {
-      reminderForm: {
-        topic: '',
-        detail: '',
-        notificationType: false,
-        phoneNumber: '',
-        email: '',
-        when: new Date()
-      },
-      reminderFormRules: {
-        topic: [{ required: true, validator: validateTopic }],
-        phoneNumber: [{ required: true, validator: validatePhoneNumber }],
-        email: [{ required: true, validator: validateEmail }],
-        when: [{ required: true, validator: validateWhen }]
-      }
-    }
+    return {}
   },
   computed: {
     posts() {
-      return this.$store.state.posts.all
+      return [{ id: 1, title: '', content: '' }]
+    }
+  },
+  methods: {
+    login() {
+      this.$auth.loginWith('local', {
+        data: {
+          username: 'mev',
+          password: 'aassddFF'
+        }
+      })
     }
   },
   head() {

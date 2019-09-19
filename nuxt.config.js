@@ -23,14 +23,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/main.css', '~/assets/rm.scss'],
+  css: ['~/assets/rm.scss'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/ga.client.js',
-    '@/plugins/route-controller.client.js'
+    '@/plugins/ga.client.js'
+    // '@/plugins/route-controller.client.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -45,13 +45,47 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/swingo': 'http://localhost:8000'
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/swingo/auth/login/',
+            method: 'post',
+            propertyName: 'access'
+          },
+          logout: { url: '/swingo/auth/logout/', method: 'post' },
+          user: {
+            url: '/swingo/auth/user',
+            method: 'get',
+            propertyName: 'user'
+          }
+        },
+        // tokenRequired: true,
+        tokenType: 'Token'
+      }
+    }
+  },
+  router: {
+    middleware: ['auth']
+  },
+  /*
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
   /*
    ** Build configuration
    */
