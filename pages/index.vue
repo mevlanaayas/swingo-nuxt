@@ -111,5 +111,6 @@ export default {
 }
 .block-btn {
   width: 100%;
+  color: black;
 }
 </style>
