@@ -1,0 +1,9 @@
+$--color-primary: #3BB7B1;
+$--color-success: #6AB53F;
+$--color-warning: #F9B232;
+$--color-info: #606060;
+$--color-danger: #ED3554;
+
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
