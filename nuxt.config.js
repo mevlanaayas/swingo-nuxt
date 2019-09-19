@@ -23,13 +23,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/rm.scss'],
+  css: ['~/assets/swingo.scss'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/ga.client.js'
+    '@/plugins/ga.client.js',
+    '@/plugins/repository.js'
     // '@/plugins/route-controller.client.js'
   ],
   /*
@@ -71,7 +72,7 @@ export default {
           user: {
             url: '/swingo/auth/user',
             method: 'get',
-            propertyName: 'user'
+            propertyName: 'username'
           }
         },
         // tokenRequired: true,

@@ -5,9 +5,21 @@
       <h4 class="title">
         Nuxt + Vue
       </h4>
+      <h6>{{ $auth.$state.loggedIn }}</h6>
+      <p v-for="order in orders" :key="order.id">{{ order.created_by }}</p>
+      <div class="reminder-form">
+        <el-button class="block-btn" type="primary" @click="createPost">
+          Create
+        </el-button>
+      </div>
       <div class="reminder-form">
         <el-button class="block-btn" type="danger" @click="login">
           Login
+        </el-button>
+      </div>
+      <div class="reminder-form">
+        <el-button class="block-btn" type="success" @click="$auth.logout()">
+          Logout
         </el-button>
       </div>
     </div>
@@ -23,14 +35,21 @@ export default {
     Logo
   },
   data() {
-    return {}
+    return {
+      orders: []
+    }
   },
-  computed: {
-    posts() {
-      return [{ id: 1, title: '', content: '' }]
+  async asyncData(ctx) {
+    return {
+      orders: await ctx.app.$repository.ListTransceiverOrders()
     }
   },
   methods: {
+    async createPost() {
+      await this.$repository.Subscribe({
+        email: 'foo@g.com'
+      })
+    },
     login() {
       this.$auth.loginWith('local', {
         data: {
