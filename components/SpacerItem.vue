@@ -1,5 +1,5 @@
 <template>
-  <div :style="style"></div>
+  <div :style="'margin-bottom: ' + space + 'px'"></div>
 </template>
 
 <script>
@@ -9,11 +9,6 @@ export default {
     space: {
       type: String,
       required: true
-    }
-  },
-  computed: {
-    style() {
-      return 'margin-bottom: ' + this.space + 'px'
     }
   }
 }

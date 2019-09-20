@@ -6,6 +6,7 @@
         Nuxt + Vue
       </h4>
       <h6>{{ $auth.$state.loggedIn }}</h6>
+      {{ orders }}
       <p v-for="order in orders" :key="order.id">{{ order.created_by }}</p>
       <div class="reminder-form">
         <el-button class="block-btn" type="primary" @click="createPost">
