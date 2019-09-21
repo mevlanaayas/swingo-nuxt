@@ -14,7 +14,14 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: 'https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -23,7 +30,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/swingo.scss'],
+  css: ['~/assets/swingo.scss', '~/assets/app.css'],
   /*
    ** Plugins to load before mounting the App
    */

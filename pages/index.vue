@@ -1,117 +1,425 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h4 class="title">
-        Nuxt + Vue
-      </h4>
-      <h6>{{ $auth.$state.loggedIn }}</h6>
-      {{ orders }}
-      <p v-for="order in orders" :key="order.id">{{ order.created_by }}</p>
-      <div class="reminder-form">
-        <el-button class="block-btn" type="primary" @click="createPost">
-          Create
-        </el-button>
+  <div>
+    <div class="landing-one-container">
+      <div class="first">
+        <div class="order-item-65-bold landing-one-title">
+          We are helping people via people
+        </div>
+        <div class="order-item-29-medium landing-one-subtitle">
+          We match deliveries from point A to B with people travelling between
+          those points anyway.
+        </div>
+
+        <div class="btn-container">
+          <el-button
+            class="landing-one-btn landing-left-btn"
+            type="warning"
+            @click="goTo('carriers')"
+            >SEND
+          </el-button>
+          <spacer-item class="web-bg" space="30"></spacer-item>
+          <el-button
+            class="landing-one-btn"
+            type="warning"
+            @click="goTo('senders')"
+            >CARRY</el-button
+          >
+        </div>
       </div>
-      <div class="reminder-form">
-        <el-button class="block-btn" type="danger" @click="login">
-          Login
-        </el-button>
+
+      <div class="second">
+        <div class="order-item-65-bold landing-one-title">
+          SENDERS
+        </div>
       </div>
-      <div class="reminder-form">
-        <el-button class="block-btn" type="success" @click="$auth.logout()">
-          Logout
-        </el-button>
+
+      <div class="second-one">
+        <div class="order-item-35-medium landing-two-subtitle">
+          Fast Deliveries
+        </div>
+      </div>
+
+      <div class="second-two">
+        <div class="order-item-35-medium landing-two-subtitle">
+          Economic
+        </div>
+      </div>
+
+      <div class="second-three">
+        <div class="order-item-35-medium landing-two-subtitle">
+          Safe and Sound
+        </div>
+      </div>
+
+      <div class="third">
+        <div class="order-item-65-bold landing-one-title">
+          CARRIERS
+        </div>
+      </div>
+
+      <div class="third-one">
+        <div class="order-item-35-medium landing-three-subtitle">
+          Secure Deliveries
+        </div>
+      </div>
+
+      <div class="third-two">
+        <div class="order-item-35-medium landing-three-subtitle">
+          Profitable Travelling
+        </div>
+      </div>
+
+      <div class="third-three">
+        <div class="order-item-35-medium landing-three-subtitle">
+          Guaranteed Payment
+        </div>
+      </div>
+
+      <div class="forth">
+        <div class="order-item-65-bold landing-four-title">
+          Download
+        </div>
+        <nuxt-link :to="{ name: 'download' }"
+          ><img src="../assets/ios.svg" alt="ios" class="ios-badge" />
+        </nuxt-link>
+        <nuxt-link :to="{ name: 'download' }"
+          ><img src="../assets/android.png" alt="android" class="android-badge"
+        /></nuxt-link>
       </div>
     </div>
+    <img
+      src="../assets/land.png"
+      alt="landing one"
+      class="sw-landing-img-one web-bg"
+    />
+    <img
+      src="../assets/mobiland.png"
+      alt="landing mobile"
+      class="sw-landing-img-mobile mobile-bg"
+    />
+    <default-footer class="landing-footer web-bg"></default-footer>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import SpacerItem from '../components/SpacerItem'
+import DefaultFooter from '../components/DefaultFooter'
 
 export default {
   auth: false,
-  components: {
-    Logo
-  },
-  data() {
-    return {
-      orders: []
-    }
-  },
-  async asyncData(ctx) {
-    return {
-      orders: await ctx.app.$repository.ListTransceiverOrders()
-    }
-  },
+  name: 'Home',
+  components: { SpacerItem, DefaultFooter },
   methods: {
-    async createPost() {
-      await this.$repository.Subscribe({
-        email: 'foo@g.com'
-      })
-    },
-    login() {
-      this.$auth.loginWith('local', {
-        data: {
-          username: 'mev',
-          password: 'aassddFF'
-        }
-      })
-    }
-  },
-  head() {
-    return {
-      title: 'Home Page 🍕',
-      meta: [
-        {
-          name: 'twitter:title',
-          content: 'Swingo website written by using Nuxt'
-        },
-        { name: 'twitter:description', content: 'Swingo + Nuxt = SEO' },
-        {
-          name: 'twitter:image',
-          content:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
-        }
-      ]
+    goTo(target) {
+      this.$router.push({ name: target })
     }
   }
 }
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.order-item-65-bold {
+  font-size: 45px;
 }
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 50px;
-  letter-spacing: 1px;
+
+.order-item-35-medium {
+  font-size: 35px;
+  font-family: wigrummedium, sans-serif;
 }
-.subtitle {
-  font-weight: 300;
-  font-size: 36px;
-  color: #526488;
-  word-spacing: 5px;
+
+.order-item-45-medium {
+  font-size: 45px;
 }
-.links {
-  padding-top: 15px;
+
+.order-item-29-medium {
+  font-size: 22px;
 }
-.reminder-form {
-  padding-top: 15px;
-  width: 50%;
-  margin-right: auto;
-  margin-left: auto;
-}
-.block-btn {
+
+.sw-landing-img-one {
+  z-index: -10;
   width: 100%;
-  color: black;
+  height: auto;
+  margin-bottom: -60px;
+  margin-top: -2px;
+}
+
+.sw-landing-img-mobile {
+  z-index: -10;
+  width: 100%;
+  height: auto;
+  margin-top: -3px;
+  position: absolute;
+  top: 0;
+}
+
+.landing-two-subtitle {
+  color: #028d8d;
+}
+
+.landing-three-subtitle {
+  color: #028d8d;
+}
+
+.ios-badge {
+  width: 50%;
+  height: auto;
+  padding-left: 28px;
+}
+
+.android-badge {
+  width: 60%;
+  height: auto;
+}
+
+.landing-footer {
+  width: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .web-bg {
+    display: none !important;
+  }
+
+  .landing-one-container div {
+    padding-right: 3%;
+    padding-left: 3%;
+  }
+
+  .first {
+    padding-top: 30px;
+    width: 90%;
+    margin-bottom: 200px;
+  }
+
+  .second {
+  }
+
+  .second-one {
+    padding-bottom: 20px;
+  }
+
+  .second-two {
+    padding-bottom: 20px;
+  }
+
+  .second-three {
+    padding-bottom: 20px;
+    margin-bottom: 280px;
+  }
+
+  .third {
+  }
+
+  .third-one {
+    padding-bottom: 20px;
+  }
+
+  .third-two {
+    padding-bottom: 20px;
+  }
+
+  .third-three {
+    padding-bottom: 20px;
+    margin-bottom: 250px;
+  }
+
+  .forth {
+    margin-bottom: 275px;
+  }
+
+  .landing-one-title {
+    margin-bottom: 40px;
+    color: #ee7b9d;
+  }
+
+  .landing-one-subtitle {
+    font-family: wigrummedium, sans-serif;
+    margin-bottom: 80px;
+    color: #028d8d;
+  }
+
+  .landing-one-btn {
+    width: 130px;
+    height: 55px;
+    font-size: 24px;
+    border-radius: 20px;
+  }
+
+  .landing-left-btn {
+    margin-right: 10px;
+  }
+
+  .ios-badge {
+    width: 50%;
+    height: auto;
+    padding-left: 15px;
+  }
+
+  .android-badge {
+    width: 60%;
+    height: auto;
+  }
+
+  .landing-four-title {
+    color: #028d8d;
+    padding-left: 30px;
+    padding-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .first {
+    padding-top: 30px;
+    width: 90%;
+    margin-bottom: 150px;
+  }
+
+  .second {
+  }
+
+  .second-one {
+    padding-bottom: 20px;
+  }
+
+  .second-two {
+    padding-bottom: 20px;
+  }
+
+  .second-three {
+    padding-bottom: 20px;
+    margin-bottom: 150px;
+  }
+
+  .third {
+  }
+
+  .third-one {
+    padding-bottom: 20px;
+  }
+
+  .third-two {
+    padding-bottom: 20px;
+  }
+
+  .third-three {
+    padding-bottom: 20px;
+    margin-bottom: 150px;
+  }
+
+  .forth {
+    margin-bottom: 70px;
+  }
+
+  .landing-four-title {
+    color: #ee7b9d;
+    padding: 12px;
+    padding-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 1001px) {
+  .mobile-bg {
+    display: none !important;
+  }
+
+  .first {
+    left: 5%;
+    top: 4.5%;
+    position: absolute;
+    width: 30%;
+  }
+
+  .second {
+    width: 100%;
+    text-align: center;
+    top: 28%;
+    position: absolute;
+  }
+
+  .second-one {
+    left: 15%;
+    top: 40%;
+    position: absolute;
+  }
+
+  .second-two {
+    width: 100%;
+    text-align: center;
+    top: 46%;
+    position: absolute;
+  }
+
+  .second-three {
+    right: 10%;
+    top: 38%;
+    position: absolute;
+  }
+
+  .third {
+    width: 100%;
+    text-align: center;
+    top: 59%;
+    position: absolute;
+  }
+
+  .third-one {
+    left: 5%;
+    top: 71%;
+    position: absolute;
+  }
+
+  .third-two {
+    width: 100%;
+    text-align: center;
+    top: 77%;
+    position: absolute;
+  }
+
+  .third-three {
+    right: 5%;
+    top: 69%;
+    position: absolute;
+  }
+
+  .forth {
+    position: absolute;
+    bottom: 9%;
+    right: 0;
+    width: 50%;
+  }
+
+  .landing-one-title {
+    margin-bottom: 40px;
+    color: #ee7b9d;
+  }
+
+  .landing-one-subtitle {
+    font-family: wigrummedium, sans-serif;
+    margin-bottom: 110px;
+    color: #028d8d;
+  }
+
+  .landing-one-btn {
+    width: 230px;
+    height: 60px;
+    font-size: 28px;
+    border-radius: 20px;
+  }
+
+  .ios-badge {
+    width: 25%;
+    padding: 12px;
+    padding-bottom: 10px;
+  }
+
+  .android-badge {
+    width: 30%;
+  }
+
+  .landing-four-title {
+    color: #028d8d;
+    padding: 12px;
+    padding-bottom: 20px;
+  }
 }
 </style>

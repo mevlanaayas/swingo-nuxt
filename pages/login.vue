@@ -6,7 +6,7 @@
           <img src="../assets/welcome.png" class="welcome-img" alt="welcome" />
         </div>
       </el-col>
-      <el-col :xs="24" :md="12" classc="outer-login-container">
+      <el-col :xs="24" :md="12" class="outer-login-container">
         <div class="inner-login-container">
           <h1>
             Welcome back!
@@ -68,6 +68,7 @@
 import SpacerItem from '../components/SpacerItem'
 
 export default {
+  auth: false,
   name: 'Login',
   components: {
     SpacerItem
@@ -93,7 +94,13 @@ export default {
     login() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$router.push(this.$route.query.redirect || '/')
+          const { username, password } = this.loginForm
+          return this.$auth.loginWith('local', {
+            data: {
+              username,
+              password
+            }
+          })
         } else {
           return false
         }

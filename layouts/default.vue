@@ -1,12 +1,15 @@
 <template>
-  <div class="container">
+  <div>
+    <default-header></default-header>
     <nuxt />
   </div>
 </template>
 
 <script>
+import DefaultHeader from '../components/DefaultHeader'
+
 export default {
-  components: {}
+  components: { DefaultHeader }
 }
 </script>
 

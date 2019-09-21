@@ -25,5 +25,6 @@ export default {
     'reset-password',
     'home',
     'mobile-terms'
-  ]
+  ],
+  DEFAULT_HEADER_DISABLED_ROUTES: []
 }

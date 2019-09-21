@@ -1,12 +1,7 @@
 <template>
-  <div
-    v-if="
-      headerDisabledRoutes.includes(this.$route.name) &&
-        this.$route.name !== 'mobile-terms'
-    "
-  >
+  <div v-if="!disabled.includes(this.$route.name)">
     <el-menu class="sw-nav-menu" mode="horizontal" @select="handleSelect">
-      <el-menu-item class="sw-menu-item" index="home">
+      <el-menu-item class="sw-menu-item" index="index">
         <img src="../assets/logo.png" alt="logo" class="header-logo" />
         <span
           style="font-family: wigrumbold, sans-serif; padding-left: 5px; font-size: 17px; color: black"
@@ -40,7 +35,7 @@ export default {
   name: 'Header',
   data() {
     return {
-      headerDisabledRoutes: CONSTANTS.HEADER_DISABLED_ROUTES
+      disabled: CONSTANTS.DEFAULT_HEADER_DISABLED_ROUTES
     }
   },
   methods: {
