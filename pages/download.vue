@@ -20,7 +20,6 @@
         </div>
       </el-col>
       <el-form
-        v-if="!released"
         ref="subscribeForm"
         :inline="true"
         :model="subscribeForm"
@@ -52,6 +51,7 @@
           </template>
         </countdown>
         -->
+        {{ params }}
         <span v-if="released">
           Download Swingo
         </span>
@@ -92,6 +92,7 @@
 import SpacerItem from '../components/SpacerItem'
 
 export default {
+  auth: false,
   name: 'Download',
   components: { SpacerItem },
   data() {
@@ -106,6 +107,7 @@ export default {
       }
     }
     return {
+      params: [],
       released: true,
       iosUrl: '',
       androidUrl: '',
@@ -130,18 +132,38 @@ export default {
   },
   async asyncData(ctx) {
     return {
-      orders: await ctx.app.$repository.Params()
+      params: await ctx.app.$repository.Params()
     }
   },
   methods: {
-    async subscribe() {
-      await this.$repository.Subscribe({
-        email: this.subscribeForm.email
+    subscribe() {
+      this.$refs.subscribeForm.validate((valid) => {
+        if (valid) {
+          this.$repository
+            .Subscribe({
+              email: this.subscribeForm.email
+            })
+            .then((response) => {
+              if (response) {
+                this.$swal.fire({
+                  allowOutsideClick: false,
+                  showConfirmButton: false,
+                  title: 'Succesfull!',
+                  text: '',
+                  type: 'success',
+                  onOpen: this.redirectSubscribed,
+                  timer: 2000
+                })
+              }
+            })
+        } else {
+          return false
+        }
       })
     },
     redirectSubscribed() {
       setTimeout(() => {
-        this.$router.push({ name: 'subscribed' })
+        this.$router.push({ name: 'login' })
       }, 2000)
     },
     countdownEnds() {

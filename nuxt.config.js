@@ -37,7 +37,8 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/ga.client.js',
-    '@/plugins/repository.js'
+    '@/plugins/repository.js',
+    '@/plugins/swal.client.js'
     // '@/plugins/route-controller.client.js'
   ],
   /*
