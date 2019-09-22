@@ -98,7 +98,7 @@ export default {
     },
     redirectResetMailSent() {
       setTimeout(() => {
-        this.$router.push({ name: 'password-done' })
+        this.$router.push({ name: 'password-reset-sent' })
       }, 2000)
     }
   }

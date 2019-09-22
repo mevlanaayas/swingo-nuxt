@@ -48,7 +48,7 @@
           </el-form>
           <h4 class="info-font-style">
             Forgot password?
-            <nuxt-link style="color:#E6A23C;" :to="{ name: 'password-forgot' }"
+            <nuxt-link style="color:#E6A23C;" :to="{ name: 'password-reset' }"
               >Recover password</nuxt-link
             >
           </h4>

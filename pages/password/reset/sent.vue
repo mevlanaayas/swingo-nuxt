@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import SpacerItem from '../../components/SpacerItem'
+import SpacerItem from '../../../components/SpacerItem'
 
 export default {
   auth: false,

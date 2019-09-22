@@ -6,31 +6,33 @@
           <h1>
             Reset password
           </h1>
-          <el-alert
-            title="Password Rules"
-            type="warning"
-            :closable="false"
-            show-icon
-          >
-            <ul class="password-rules">
-              <li>
-                It must contain at least 5 characters.
-              </li>
-              <li>
-                It must be alphanumeric and rare.
-                <a
-                  href="https://gist.github.com/roycewilliams/281ce539915a947a23db17137d91aeb7"
-                >
-                  Common passwords</a
-                >
-                are weak :(
-              </li>
-              <li>
-                It must be different from your username, email, first name and
-                last name.
-              </li>
-            </ul>
-          </el-alert>
+          <client-only>
+            <el-alert
+              title="Password Rules"
+              type="warning"
+              :closable="false"
+              show-icon
+            >
+              <ul class="password-rules">
+                <li>
+                  It must contain at least 5 characters.
+                </li>
+                <li>
+                  It must be alphanumeric and rare.
+                  <a
+                    href="https://gist.github.com/roycewilliams/281ce539915a947a23db17137d91aeb7"
+                  >
+                    Common passwords</a
+                  >
+                  are weak :(
+                </li>
+                <li>
+                  It must be different from your username, email, first name and
+                  last name.
+                </li>
+              </ul>
+            </el-alert>
+          </client-only>
 
           <spacer-item space="30"></spacer-item>
 
@@ -80,7 +82,7 @@
 </template>
 
 <script>
-import SpacerItem from '../../components/SpacerItem'
+import SpacerItem from '@/components/SpacerItem'
 
 export default {
   auth: false,
@@ -119,7 +121,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     this.uid = this.$router.history.current.params.uid
     this.token = this.$router.history.current.params.token
   },
@@ -160,5 +162,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>
