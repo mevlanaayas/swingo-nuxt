@@ -51,7 +51,6 @@
           </template>
         </countdown>
         -->
-        {{ params }}
         <span v-if="released">
           Download Swingo
         </span>
@@ -163,7 +162,7 @@ export default {
     },
     redirectSubscribed() {
       setTimeout(() => {
-        this.$router.push({ name: 'login' })
+        this.$router.push({ name: 'subscribed' })
       }, 2000)
     },
     countdownEnds() {
