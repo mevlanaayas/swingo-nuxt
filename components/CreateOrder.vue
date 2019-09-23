@@ -239,8 +239,14 @@ export default {
     SpacerItem
   },
   props: {
-    title: String,
-    orderType: Number
+    title: {
+      type: String,
+      default: 'Empty'
+    },
+    orderType: {
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {

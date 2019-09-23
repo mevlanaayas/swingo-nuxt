@@ -1,5 +1,9 @@
 export default {
   mode: 'universal',
+  server: {
+    port: 8080, // default: 3000
+    host: '0.0.0.0' // default: localhost
+  },
   /*
    ** Headers of the page
    */
@@ -38,7 +42,8 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/ga.client.js',
     '@/plugins/repository.js',
-    '@/plugins/swal.client.js'
+    '@/plugins/swal.client.js',
+    '@/plugins/axios.js'
     // '@/plugins/route-controller.client.js'
   ],
   /*
@@ -65,7 +70,7 @@ export default {
     proxy: true
   },
   proxy: {
-    '/swingo': 'http://localhost:8000'
+    '/swingo': process.env.API || 'http://localhost:8000'
   },
   auth: {
     strategies: {

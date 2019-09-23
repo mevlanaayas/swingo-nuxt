@@ -33,8 +33,14 @@ export default {
   name: 'ConfirmPhoneNumber',
   components: { SpacerItem },
   props: {
-    phoneNumberId: Number,
-    phoneNumber: String
+    phoneNumberId: {
+      type: Number,
+      default: 0
+    },
+    phoneNumber: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     const validateCode = (rule, value, callback) => {
