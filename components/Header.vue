@@ -1,61 +1,5 @@
 <template>
-  <div v-if="!headerDisabledRoutes.includes(this.$route.name)">
-    <el-row class="hidden-md-and-up">
-      <el-menu class="sw-nav-menu" mode="horizontal" @select="handleSelect">
-        <el-menu-item class="sw-menu-item" index="home">
-          <img src="../assets/logo.png" alt="logo" class="header-logo" />
-        </el-menu-item>
-      </el-menu>
-
-      <el-col :xs="24">
-        <div class="grid-content bg-light">
-          <Slide disable-outside-click no-overlay class="sw-burger-menu" right>
-            <nuxt-link id="home" to="home">
-              <i class="fas fa-home"></i>
-              <span>Home</span>
-            </nuxt-link>
-            <nuxt-link id="send" to="send">
-              <i class="fas fa-share-square"></i>
-              <span>Send</span>
-            </nuxt-link>
-            <nuxt-link id="carry" to="carry">
-              <i class="fas fa-baby-carriage"></i>
-              <span>Carry</span>
-            </nuxt-link>
-            <nuxt-link id="senders" to="senders">
-              <i class="fas fa-share-square"></i>
-              <span>Senders</span>
-            </nuxt-link>
-            <nuxt-link id="carriers" to="carriers">
-              <i class="fas fa-baby-carriage"></i>
-              <span>Carriers</span>
-            </nuxt-link>
-
-            <nuxt-link id="profile" to="profile">
-              <i class="fas fa-user"></i>
-              <span>Profile</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="!this.$store.getters.isAuthenticated"
-              id="login"
-              to="login"
-            >
-              <i class="fas fa-sign-in-alt"></i>
-              <span>Login</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="this.$store.getters.isAuthenticated"
-              id="logout"
-              to="login"
-              @click="$auth.logout()"
-            >
-              <i class="fas fa-sign-in-alt"></i>
-              <span>Logout</span>
-            </nuxt-link>
-          </Slide>
-        </div>
-      </el-col>
-    </el-row>
+  <div v-if="!disabled.includes(this.$route.name)">
     <el-menu
       :default-active="activeIndex"
       class="sw-nav-menu hidden-sm-and-down"
@@ -70,11 +14,11 @@
         >
       </el-menu-item>
 
-      <el-menu-item v-if="$store.getters.isAuthenticated" index="send">
+      <el-menu-item v-if="$auth.$state.loggedIn" index="send">
         <i class="el-icon-timer"></i>
         <span class="sw-menu-p">Send</span>
       </el-menu-item>
-      <el-menu-item v-if="$store.getters.isAuthenticated" index="carry">
+      <el-menu-item v-if="$auth.$state.loggedIn" index="carry">
         <i class="el-icon-shopping-cart-full"></i>
         <span class="sw-menu-p">Carry</span>
       </el-menu-item>
@@ -116,14 +60,14 @@
         <i class="el-icon-download"></i>
       </el-menu-item>
       <el-menu-item
-        v-if="!$store.getters.isAuthenticated"
+        v-if="!$auth.$state.loggedIn"
         index="login"
         style="float: right"
       >
         <span class="sw-menu-p">JOIN US</span>
       </el-menu-item>
       <el-menu-item
-        v-if="$store.getters.isAuthenticated"
+        v-if="$auth.$state.loggedIn"
         index=""
         style="float: right"
         @click="$auth.logout()"
@@ -132,7 +76,7 @@
         <span class="sw-menu-p">Logout</span>
       </el-menu-item>
       <el-menu-item
-        v-if="$store.getters.isAuthenticated"
+        v-if="$auth.$state.loggedIn"
         index="profile"
         style="float: right"
       >
@@ -144,29 +88,31 @@
 </template>
 
 <script>
-import { Slide } from 'vue-burger-menu'
 import CONSTANTS from '../utils/constants'
 
 export default {
   name: 'Header',
-  components: {
-    Slide
-  },
   data() {
     return {
-      headerDisabledRoutes: CONSTANTS.HEADER_DISABLED_ROUTES,
+      disabled: CONSTANTS.HEADER_DISABLED_ROUTES,
       activeIndex: '1'
     }
   },
   computed: {
     username() {
-      return localStorage.getItem('username')
+      return this.$auth.user.name
     }
   },
   created() {},
   methods: {
     handleSelect(key) {
-      this.$router.push({ name: key })
+      if (key === 'senders') {
+        this.$router.push({ name: 'orders-type', params: { type: 'send' } })
+      } else if (key === 'carriers') {
+        this.$router.push({ name: 'orders-type', params: { type: 'carry' } })
+      } else {
+        this.$router.push({ name: key })
+      }
     }
   }
 }

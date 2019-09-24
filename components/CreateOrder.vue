@@ -5,17 +5,9 @@
         <h2>
           {{ title }}
         </h2>
-        <el-alert
-          class="order-explanations"
-          :closable="false"
-          title="Explanations"
-          type="info"
-          show-icon
-        >
-          <ul
-            v-if="orderType === ORDER_TYPES.TRANSCEIVER_ORDER"
-            class="order-explanations"
-          >
+        <div class="order-explanations">
+          <h3>Explanations</h3>
+          <ul v-if="orderType === ORDER_TYPES.SEND_ORDER" class="">
             <li>{{ fromCityLabelForSender }}</li>
             <li>{{ toCityLabelForSender }}</li>
             <li>{{ fromDateLabelForSender }}</li>
@@ -26,10 +18,7 @@
             <li>{{ packetValueLabel }}</li>
             <li>{{ commentsLabelForSender }}</li>
           </ul>
-          <ul
-            v-if="orderType === ORDER_TYPES.TRANSPORTER_ORDER"
-            class="order-explanations"
-          >
+          <ul v-if="orderType === ORDER_TYPES.CARRY_ORDER" class="">
             <li>{{ fromCityLabelForCarrier }}</li>
             <li>{{ toCityLabelForCarrier }}</li>
             <li>{{ fromDateLabelForCarrier }}</li>
@@ -38,7 +27,7 @@
             <li>{{ sizeLabel }}</li>
             <li>{{ commentsLabelForCarrier }}</li>
           </ul>
-        </el-alert>
+        </div>
       </el-col>
       <el-col :xs="24" :md="10">
         <div>
@@ -158,7 +147,7 @@
             </el-form-item>
 
             <el-form-item
-              v-if="orderType === ORDER_TYPES.TRANSCEIVER_ORDER"
+              v-if="orderType === ORDER_TYPES.SEND_ORDER"
               label="Price to Pay"
               prop="price"
             >
@@ -173,7 +162,7 @@
             </el-form-item>
 
             <el-form-item
-              v-if="orderType === ORDER_TYPES.TRANSCEIVER_ORDER"
+              v-if="orderType === ORDER_TYPES.SEND_ORDER"
               label="Item Value"
               prop="packet_value"
             >
@@ -244,8 +233,8 @@ export default {
       default: 'Empty'
     },
     orderType: {
-      type: Number,
-      default: 0
+      type: String,
+      default: 'send'
     }
   },
   data() {

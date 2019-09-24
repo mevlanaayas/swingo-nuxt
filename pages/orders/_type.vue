@@ -15,16 +15,6 @@
               :picker-options="datePickerOptions"
             >
             </el-date-picker>
-            <el-date-picker
-              v-model="dateFilter"
-              disabled=""
-              style="width: 100% !important;"
-              class="hidden-sm-and-up"
-              type="date"
-              align="right"
-              :picker-options="smallDatePickerOptions"
-            >
-            </el-date-picker>
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-select
@@ -80,20 +70,26 @@
         </el-row>
       </el-card>
       <h2>
-        {{ title }}
+        {{
+          type === ORDER_TYPES.CARRY_ORDER
+            ? 'List of Carriers'
+            : 'List of Senders'
+        }}
       </h2>
-      <el-alert
-        v-if="orderType === constants.ORDER_TYPES.TRANSPORTER_ORDER"
-        title="Why Payment Form?"
-        type="warning"
-        :closable="false"
-        show-icon
-      >
-        <span
-          >You decide the PAYMENT while giving an offer to your Carrier. We are
-          trying to make Swingo fair.</span
+      <client-only>
+        <el-alert
+          v-if="type === ORDER_TYPES.CARRY_ORDER"
+          title="Why Payment Form?"
+          type="warning"
+          :closable="false"
+          show-icon
         >
-      </el-alert>
+          <span>
+            You decide the PAYMENT while giving an offer to your Carrier. We are
+            trying to make Swingo fair.
+          </span>
+        </el-alert>
+      </client-only>
 
       <el-col :xs="24">
         <empty-list-place-holder
@@ -104,8 +100,8 @@
             :element="order"
             type="order"
             :clickable="true"
-            :profile="profile"
-            :order-type="orderType"
+            :profile="false"
+            :order-type="type"
           ></order-item>
           <spacer-item space="20"></spacer-item>
         </el-row>
@@ -131,33 +127,24 @@
 </template>
 
 <script>
-import OrderItem from '../components/item/OrderItem'
-import CONSTANTS from '../utils/constants'
-import CITIES from '../utils/cities'
-import SpacerItem from './SpacerItem'
-import EmptyListPlaceHolder from './EmptyListPlaceHolder'
+import OrderItem from '@/components/item/OrderItem'
+import CITIES from '@/utils/cities'
+import SpacerItem from '@/components/SpacerItem'
+import EmptyListPlaceHolder from '@/components/EmptyListPlaceHolder'
+import CONSTANTS from '@/utils/constants'
 
 export default {
-  name: 'ListOrder',
+  auth: false,
+  name: 'OrderList',
   components: {
     SpacerItem,
     OrderItem,
     EmptyListPlaceHolder
   },
-  props: {
-    title: {
-      type: String,
-      default: 'Empty'
-    },
-    orderType: {
-      type: Number,
-      default: 0
-    },
-    profile: Boolean
-  },
   data() {
     return {
-      constants: CONSTANTS,
+      ORDER_TYPES: CONSTANTS.ORDER_TYPES,
+      type: this.$route.params.type,
       fromCitySelectOptions: [],
       toCitySelectOptions: [],
       cityList: [],
@@ -167,21 +154,12 @@ export default {
       fromCityFilter: '',
       toCityFilter: '',
       currentPage: 1,
-      show: false,
       orders: [],
       totalOrders: null,
       pageSize: null,
       totalPages: null,
       loading: true,
       pagination: {},
-      headers: [
-        { text: 'From City', value: 'from_city', sortable: false },
-        { text: 'To City', value: 'to_city', sortable: false },
-        { text: 'From Date', value: 'from_date' },
-        { text: 'To Date', value: 'to_date' }
-      ],
-      dialog: false,
-      visible2: false,
       bidForm: {
         price: null
       },
@@ -233,7 +211,7 @@ export default {
   },
   computed: {
     username() {
-      return this.$store.getters.user
+      return this.$auth.user.name
     }
   },
   watch: {
@@ -245,7 +223,7 @@ export default {
           page: this.pagination.page
         }
         this.loading = true
-        if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSCEIVER_ORDER) {
+        if (this.orderType === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
           this.$repository
             .ListTransceiverOrders({ params })
             .then((response) => {
@@ -254,7 +232,7 @@ export default {
               this.totalPages = response.data.total_pages
               this.loading = false
             })
-        } else if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSPORTER_ORDER) {
+        } else if (this.orderType === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
           this.$repository
             .ListTransporterOrders({ params })
             .then((response) => {
@@ -268,8 +246,19 @@ export default {
       deep: true
     }
   },
-  created() {
-    this.listOrders()
+  async asyncData(ctx) {
+    let result = null
+    if (ctx.params.type === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
+      result = await ctx.app.$repository.ListTransceiverOrders()
+    } else {
+      result = await ctx.app.$repository.ListTransporterOrders()
+    }
+    return {
+      orders: result.results,
+      totalOrders: result.count,
+      totalPages: result.total_pages,
+      loading: false
+    }
   },
   mounted() {
     this.cityList = CITIES.CITIES.map((item) => {
@@ -285,55 +274,6 @@ export default {
       if (this.toCityFilter !== '') {
         params.to_city = this.toCityFilter
       }
-      if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSCEIVER_ORDER) {
-        if (this.profile) {
-          this.$repository
-            .MySendOrders({
-              params
-            })
-            .then((response) => {
-              this.orders = response.data.results
-              this.totalOrders = response.data.count
-              this.totalPages = response.data.total_pages
-              this.pageSize = response.data.items_per_page
-            })
-        } else {
-          this.$repository
-            .ListTransceiverOrders({
-              params
-            })
-            .then((response) => {
-              this.orders = response.data.results
-              this.totalOrders = response.data.count
-              this.totalPages = response.data.total_pages
-              this.pageSize = response.data.items_per_page
-            })
-        }
-      } else if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSPORTER_ORDER) {
-        if (this.profile) {
-          this.$repository
-            .MyCarryOrders({
-              params
-            })
-            .then((response) => {
-              this.orders = response.data.results
-              this.totalOrders = response.data.count
-              this.totalPages = response.data.total_pages
-              this.pageSize = response.data.items_per_page
-            })
-        } else {
-          this.$repository
-            .ListTransporterOrders({
-              params
-            })
-            .then((response) => {
-              this.orders = response.data.results
-              this.totalOrders = response.data.count
-              this.totalPages = response.data.total_pages
-              this.pageSize = response.data.items_per_page
-            })
-        }
-      }
     },
     handleSizeChange() {
       this.listOrders()
@@ -341,9 +281,6 @@ export default {
     handleCurrentChange() {
       this.listOrders()
     },
-    /*
-            filter methods
-             */
     remoteMethodFrom(query) {
       if (query !== '') {
         this.fromCitySelectLoading = true

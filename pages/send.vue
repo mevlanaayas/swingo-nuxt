@@ -1,7 +1,7 @@
 <template>
   <CreateOrder
     title="I need a Carrier for carrying my packet."
-    :order-type="ORDER_TYPES.TRANSCEIVER_ORDER"
+    :order-type="ORDER_TYPES.SEND_ORDER"
   >
   </CreateOrder>
 </template>

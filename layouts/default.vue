@@ -1,5 +1,6 @@
 <template>
   <div>
+    <auth-header></auth-header>
     <default-header></default-header>
     <nuxt />
   </div>
@@ -7,9 +8,10 @@
 
 <script>
 import DefaultHeader from '../components/DefaultHeader'
+import AuthHeader from '../components/Header'
 
 export default {
-  components: { DefaultHeader }
+  components: { DefaultHeader, AuthHeader }
 }
 </script>
 

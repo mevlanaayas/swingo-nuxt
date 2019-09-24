@@ -43,7 +43,8 @@ export default {
     '@/plugins/ga.client.js',
     '@/plugins/repository.js',
     '@/plugins/swal.client.js',
-    '@/plugins/axios.js'
+    '@/plugins/axios.js',
+    '@/plugins/filters.js'
     // '@/plugins/route-controller.client.js'
   ],
   /*

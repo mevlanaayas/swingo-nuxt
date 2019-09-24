@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!disabled.includes(this.$route.name)">
+  <div v-show="!disabled.includes(this.$route.name)">
     <el-menu class="sw-nav-menu" mode="horizontal" @select="handleSelect">
       <el-menu-item class="sw-menu-item" index="index">
         <img src="../assets/logo.png" alt="logo" class="header-logo" />
@@ -9,7 +9,7 @@
         >
       </el-menu-item>
       <el-menu-item
-        v-if="!$store.getters.isAuthenticated"
+        v-if="!$auth.$state.loggedIn"
         class="sw-menu-item"
         index="login"
         style="float: right"
@@ -17,7 +17,7 @@
         <el-button type="primary" class="">JOIN US</el-button>
       </el-menu-item>
       <el-menu-item
-        v-if="$store.getters.isAuthenticated"
+        v-if="$auth.$state.loggedIn"
         class="sw-menu-item"
         index="welcome"
         style="float: right"

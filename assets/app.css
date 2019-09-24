@@ -437,8 +437,15 @@ body {
   font-size: 12px;
 }
 .order-explanations {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #e3e5e4;
   font-size: 14px !important;
   margin-right: 10px !important;
+}
+
+.order-explanations h3 {
+  margin: 5px;
 }
 
 .order-explanations li {

@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import CreateOrder from '../components/CreateOrder'
-import CONSTANTS from '../utils/constants'
+import CreateOrder from '@/components/CreateOrder'
+import CONSTANTS from '@/utils/constants'
+
 export default {
   name: 'CarryOrder',
   components: { CreateOrder },

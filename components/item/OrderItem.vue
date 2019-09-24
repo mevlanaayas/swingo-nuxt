@@ -65,7 +65,7 @@
           </div>
 
           <div
-            v-if="orderType === constants.ORDER_TYPES.TRANSCEIVER_ORDER"
+            v-if="orderType === constants.ORDER_TYPES.SEND_ORDER"
             class="payment-style center"
           >
             <span class="order-item-25-bold black-payment">payment</span>
@@ -76,7 +76,7 @@
           </div>
 
           <div
-            v-if="orderType === constants.ORDER_TYPES.TRANSPORTER_ORDER"
+            v-if="orderType === constants.ORDER_TYPES.CARRY_ORDER"
             class="payment-style center"
           >
             <span class="order-item-25-bold black-payment">payment</span>
@@ -104,9 +104,7 @@
           </div>
 
           <div
-            v-if="
-              !profile && orderType === constants.ORDER_TYPES.TRANSCEIVER_ORDER
-            "
+            v-if="!profile && orderType === constants.ORDER_TYPES.SEND_ORDER"
             class="center order-item-margin"
           >
             <el-button class="order-item-btn" @click="makeADirectBid(element)">
@@ -115,9 +113,7 @@
           </div>
 
           <div
-            v-if="
-              !profile && orderType === constants.ORDER_TYPES.TRANSPORTER_ORDER
-            "
+            v-if="!profile && orderType === constants.ORDER_TYPES.CARRY_ORDER"
             class="center order-item-margin"
           >
             <el-button class="order-item-btn" @click="makeABid(element)">
@@ -170,7 +166,7 @@
           <spacer-item class="spacer" space="35"></spacer-item>
 
           <div
-            v-if="orderType === constants.ORDER_TYPES.TRANSCEIVER_ORDER"
+            v-if="orderType === constants.ORDER_TYPES.SEND_ORDER"
             class="payment-style center"
           >
             <span class="order-item-25-bold black-payment">payment</span>
@@ -181,7 +177,7 @@
           </div>
 
           <div
-            v-if="orderType === constants.ORDER_TYPES.TRANSPORTER_ORDER"
+            v-if="orderType === constants.ORDER_TYPES.CARRY_ORDER"
             class="payment-style center"
           >
             <span class="order-item-25-bold black-payment">payment</span>
@@ -270,9 +266,7 @@
         </div>
 
         <div
-          v-if="
-            !profile && orderType === constants.ORDER_TYPES.TRANSCEIVER_ORDER
-          "
+          v-if="!profile && orderType === constants.ORDER_TYPES.SEND_ORDER"
           class="center order-item-margin"
         >
           <el-button class="order-item-btn" @click="makeADirectBid(element)">
@@ -281,9 +275,7 @@
         </div>
 
         <div
-          v-if="
-            !profile && orderType === constants.ORDER_TYPES.TRANSPORTER_ORDER
-          "
+          v-if="!profile && orderType === constants.ORDER_TYPES.CARRY_ORDER"
           class="center order-item-margin"
         >
           <el-button class="order-item-btn" @click="makeABid(element)">
@@ -312,7 +304,7 @@ export default {
       required: true
     },
     orderType: {
-      type: Number,
+      type: String,
       required: true
     },
     clickable: {
@@ -387,7 +379,7 @@ export default {
     sendRequest(order) {
       this.visible2 = false
       let request = {}
-      if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSCEIVER_ORDER) {
+      if (this.orderType === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
         request = { send_order: order.id, value: 0 }
       } else {
         request = { carry_order: order.id, value: this.bidForm.price }
