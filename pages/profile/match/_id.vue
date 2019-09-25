@@ -302,10 +302,7 @@ export default {
           carrier: false
         }
       ],
-      // staging setting
-      // socket: io('localhost:3000', {secure: true, rejectUnauthorized: false}),
-      // prod setting
-      socket: io('https://goswingo.com:5000', {
+      socket: io(process.env.socketUrl, {
         secure: true,
         rejectUnauthorized: false
       })
@@ -331,7 +328,7 @@ export default {
       return ''
     },
     username() {
-      return this.$auth.user.name
+      return this.$auth.user.username
     },
     passed() {
       let result = 0
@@ -363,8 +360,6 @@ export default {
   },
   async asyncData(ctx) {
     let params = { id: ctx.params.id }
-    // eslint-disable-next-line no-console
-    console.log(params)
     const match = await ctx.app.$repository.RetrieveMatch({ params })
     params = params = { id: match.chat_room_id }
     const messages = ctx.app.$repository.ListChatMessages({ params })
@@ -387,16 +382,17 @@ export default {
       this.messages.push(data)
     })
     this.socket.on('UPDATE_MATCH', (data) => {
-      // eslint-disable-next-line no-console
-      console.log('Update match status')
-      // eslint-disable-next-line no-console
-      console.log(data)
+      this.$notify.info({
+        title: 'Update match status',
+        message: data,
+        offset: 60
+      })
     })
   },
   methods: {
     alertOpenedReject() {
       setTimeout(() => {
-        this.$router.push({ name: 'dashboard' })
+        this.$router.push({ name: 'profile-match-id', params: { id: this.id } })
       }, 4000)
     },
     joinSocketRoom() {
@@ -412,6 +408,8 @@ export default {
         roomId: this.match.chat_room_id
       })
       this.socket.emit('UPDATE_MATCH', {
+        username: this.username,
+        status: 'Updated',
         roomId: this.match.chat_room_id
       })
       this.message = ''
@@ -757,8 +755,11 @@ export default {
         })
     },
     updateMatch() {
-      // eslint-disable-next-line no-console
-      console.log(`Update match with id ${this.match.chat_room_id}`)
+      this.$notify.error({
+        title: 'Update match with id',
+        message: this.match.chat_room_id,
+        offset: 60
+      })
       this.socket.emit('UPDATE_MATCH', {
         roomId: this.match.chat_room_id
       })

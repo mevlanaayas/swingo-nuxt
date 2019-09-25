@@ -81,13 +81,13 @@ export default {
       return ''
     },
     username() {
-      return localStorage.getItem('username')
+      return this.$auth.user.name
     }
   },
   methods: {
     isOwner(item) {
       const createdBy = item.created_by
-      return createdBy === localStorage.getItem('username')
+      return createdBy === this.$auth.user.name
     },
     goto(matchId) {
       this.$router.push({

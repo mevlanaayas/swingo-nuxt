@@ -333,7 +333,7 @@ export default {
   },
   methods: {
     makeABid(order) {
-      if (!this.$store.getters.isAuthenticated) {
+      if (!this.$auth.$state.loggedIn) {
         this.unauthenticatedBid()
       } else {
         this.$refs.bidForm.validate((valid) => {
@@ -346,7 +346,7 @@ export default {
       }
     },
     makeADirectBid(order) {
-      if (!this.$store.getters.isAuthenticated) {
+      if (!this.$auth.$state.loggedIn) {
         this.unauthenticatedBid()
       } else {
         this.sendRequest(order)
@@ -418,12 +418,12 @@ export default {
     },
     bidCreated() {
       setTimeout(() => {
-        this.$router.push({ name: 'my-matches' })
+        this.$router.push({ name: 'profile-match' })
       }, 1500)
     },
     isOwner(item) {
       const createdBy = item.created_by
-      return createdBy === localStorage.getItem('username')
+      return createdBy === this.$auth.user.name
     },
     isLong(fromCity, toCity) {
       return fromCity.length + toCity.length >= 18

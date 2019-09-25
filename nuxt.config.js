@@ -4,6 +4,9 @@ export default {
     port: 8080, // default: 3000
     host: '0.0.0.0' // default: localhost
   },
+  env: {
+    socketUrl: process.env.SOCKET_URL || 'localhost:3000'
+  },
   /*
    ** Headers of the page
    */

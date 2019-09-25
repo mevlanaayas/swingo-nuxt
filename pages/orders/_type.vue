@@ -229,22 +229,22 @@ export default {
           page: this.pagination.page
         }
         this.loading = true
-        if (this.orderType === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
+        if (this.type === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
           this.$repository
             .ListTransceiverOrders({ params })
             .then((response) => {
-              this.orders = response.data.results
-              this.totalOrders = response.data.count
-              this.totalPages = response.data.total_pages
+              this.orders = response.results
+              this.totalOrders = response.count
+              this.totalPages = response.total_pages
               this.loading = false
             })
-        } else if (this.orderType === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
+        } else if (this.type === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
           this.$repository
             .ListTransporterOrders({ params })
             .then((response) => {
-              this.orders = response.data.results
-              this.totalOrders = response.data.count
-              this.totalPages = response.data.total_pages
+              this.orders = response.results
+              this.totalOrders = response.count
+              this.totalPages = response.total_pages
               this.loading = false
             })
         }
@@ -254,7 +254,7 @@ export default {
   },
   async asyncData(ctx) {
     let result = null
-    if (ctx.params.type === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
+    if (ctx.params.type === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
       result = await ctx.app.$repository.ListTransceiverOrders()
     } else {
       result = await ctx.app.$repository.ListTransporterOrders()
@@ -279,6 +279,29 @@ export default {
       }
       if (this.toCityFilter !== '') {
         params.to_city = this.toCityFilter
+      }
+      if (this.type === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
+        this.$repository
+          .ListTransceiverOrders({
+            params
+          })
+          .then((response) => {
+            this.orders = response.results
+            this.totalOrders = response.count
+            this.totalPages = response.total_pages
+            this.pageSize = response.items_per_page
+          })
+      } else if (this.type === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
+        this.$repository
+          .ListTransporterOrders({
+            params
+          })
+          .then((response) => {
+            this.orders = response.results
+            this.totalOrders = response.count
+            this.totalPages = response.total_pages
+            this.pageSize = response.items_per_page
+          })
       }
     },
     handleSizeChange() {

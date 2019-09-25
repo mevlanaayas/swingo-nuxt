@@ -358,11 +358,6 @@ export default {
       }
     }
   },
-  computed: {
-    username() {
-      return localStorage.getItem('username')
-    }
-  },
   mounted() {
     this.cityList = cities.CITIES.map((item) => {
       return { value: item.id, label: item.name }
@@ -420,16 +415,19 @@ export default {
         price: this.orderForm.price,
         packet_value: this.orderForm.packet_value
       }
-      if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSCEIVER_ORDER) {
+      if (this.orderType === CONSTANTS.ORDER_TYPES.SEND_ORDER) {
         this.$repository.CreateTransceiverOrder(params).then((response) => {
           if (response) {
-            this.$router.push('senders')
+            this.$router.push({ name: 'orders-type', params: { type: 'send' } })
           }
         })
-      } else if (this.orderType === CONSTANTS.ORDER_TYPES.TRANSPORTER_ORDER) {
+      } else if (this.orderType === CONSTANTS.ORDER_TYPES.CARRY_ORDER) {
         this.$repository.CreateTransporterOrder(params).then((response) => {
           if (response) {
-            this.$router.push('carriers')
+            this.$router.push({
+              name: 'orders-type',
+              params: { type: 'carry' }
+            })
           }
         })
       }
