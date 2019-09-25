@@ -68,7 +68,6 @@
 import SpacerItem from '../components/SpacerItem'
 
 export default {
-  auth: false,
   meta: {
     auth: { authority: 0 }
   },

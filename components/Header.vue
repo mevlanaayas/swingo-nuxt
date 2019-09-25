@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!disabled.includes(this.$route.name)">
+  <div v-if="$auth.$state.loggedIn">
     <el-menu
       :default-active="activeIndex"
       class="sw-nav-menu hidden-sm-and-down"
@@ -34,23 +34,23 @@
         <template slot="title">
           <span class="sw-menu-p">More</span>
         </template>
-        <el-menu-item index="about">
+        <el-menu-item index="more-about">
           <i class="el-icon-service"></i>
           <span class="sw-menu-p">About</span>
         </el-menu-item>
-        <el-menu-item index="security">
+        <el-menu-item index="more-security">
           <i class="el-icon-umbrella"></i>
           <span class="sw-menu-p">Security</span>
         </el-menu-item>
-        <el-menu-item index="locations">
+        <el-menu-item index="more-locations">
           <i class="el-icon-location-outline"></i>
           <span class="sw-menu-p">Locations</span>
         </el-menu-item>
-        <el-menu-item index="products">
+        <el-menu-item index="more-products">
           <i class="el-icon-goods"></i>
           <span class="sw-menu-p">Products</span>
         </el-menu-item>
-        <el-menu-item index="pricing">
+        <el-menu-item index="more-pricing">
           <i class="el-icon-money"></i>
           <span class="sw-menu-p">Pricing</span>
         </el-menu-item>

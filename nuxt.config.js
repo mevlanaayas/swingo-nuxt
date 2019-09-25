@@ -30,7 +30,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#ffff11' },
   /*
    ** Global CSS
    */
@@ -45,7 +45,6 @@ export default {
     '@/plugins/swal.client.js',
     '@/plugins/axios.js',
     '@/plugins/filters.js'
-    // '@/plugins/router.js'
   ],
   /*
    ** Nuxt.js dev-modules

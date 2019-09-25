@@ -1,4 +1,6 @@
 export default ({ store, route, redirect }) => {
+  // eslint-disable-next-line no-console
+  console.log(route)
   const authority = route.meta[0].auth.authority
   const auth = store.$auth.$state.loggedIn
 

@@ -14,14 +14,14 @@
           <el-button
             class="landing-one-btn landing-left-btn"
             type="warning"
-            @click="goTo('carriers')"
+            @click="goTo('senders')"
             >SEND
           </el-button>
           <spacer-item class="web-bg" space="30"></spacer-item>
           <el-button
             class="landing-one-btn"
             type="warning"
-            @click="goTo('senders')"
+            @click="goTo('carriers')"
             >CARRY</el-button
           >
         </div>
@@ -114,7 +114,11 @@ export default {
   components: { SpacerItem, DefaultFooter },
   methods: {
     goTo(target) {
-      this.$router.push({ name: target })
+      if (target === 'senders') {
+        this.$router.push({ name: 'orders-type', params: { type: 'send' } })
+      } else if (target === 'carriers') {
+        this.$router.push({ name: 'orders-type', params: { type: 'carry' } })
+      }
     }
   }
 }

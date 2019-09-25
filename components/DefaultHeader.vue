@@ -1,5 +1,5 @@
 <template>
-  <div v-show="!disabled.includes(this.$route.name)">
+  <div v-show="!$auth.$state.loggedIn">
     <el-menu class="sw-nav-menu" mode="horizontal" @select="handleSelect">
       <el-menu-item class="sw-menu-item" index="index">
         <img src="../assets/logo.png" alt="logo" class="header-logo" />
