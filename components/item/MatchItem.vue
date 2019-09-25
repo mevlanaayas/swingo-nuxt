@@ -59,10 +59,12 @@
 </template>
 
 <script>
-import CONSTANTS from '../../utils/constants'
+import SpacerItem from '../SpacerItem'
+import CONSTANTS from '@/utils/constants'
 
 export default {
   name: 'MatchElement',
+  components: { SpacerItem },
   props: {
     element: {
       type: Object,
@@ -89,19 +91,19 @@ export default {
       return ''
     },
     username() {
-      return localStorage.getItem('username')
+      return this.$auth.user.name
     }
   },
   methods: {
     isOwner(item) {
       const createdBy = item.created_by
-      return createdBy === localStorage.getItem('username')
+      return createdBy === this.$auth.user.name
     },
     goto(matchId) {
       this.$router.push({
-        name: 'checkout',
+        name: 'profile-match-id',
         params: {
-          matchId
+          id: matchId
         }
       })
     },
