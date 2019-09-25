@@ -461,6 +461,9 @@
 <script>
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'Privacy',
   methods: {
     go(route) {

@@ -38,6 +38,9 @@ import cities from '../../utils/cities'
 
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'Locations',
   components: { SpacerItem },
   data() {

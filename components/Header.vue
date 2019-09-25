@@ -6,7 +6,7 @@
       mode="horizontal"
       @select="handleSelect"
     >
-      <el-menu-item index="home">
+      <el-menu-item index="index">
         <img src="../assets/logo.png" alt="logo" class="header-logo" />
         <span
           style="font-family: wigrumbold, sans-serif; padding-left: 5px; font-size: 17px; color: black"
@@ -110,6 +110,16 @@ export default {
         this.$router.push({ name: 'orders-type', params: { type: 'send' } })
       } else if (key === 'carriers') {
         this.$router.push({ name: 'orders-type', params: { type: 'carry' } })
+      } else if (key === 'send') {
+        this.$router.push({
+          name: 'orders-create-type',
+          params: { type: 'send' }
+        })
+      } else if (key === 'carry') {
+        this.$router.push({
+          name: 'orders-create-type',
+          params: { type: 'carry' }
+        })
       } else {
         this.$router.push({ name: key })
       }

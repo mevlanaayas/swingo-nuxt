@@ -135,7 +135,13 @@ import CONSTANTS from '@/utils/constants'
 
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'OrderList',
+  validate({ params }) {
+    return params.type === 'send' || params.type === 'carry'
+  },
   components: {
     SpacerItem,
     OrderItem,

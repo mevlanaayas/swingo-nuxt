@@ -10,7 +10,14 @@ import CreateOrder from '@/components/CreateOrder'
 import CONSTANTS from '@/utils/constants'
 
 export default {
+  auth: true,
+  meta: {
+    auth: { authority: 1 }
+  },
   name: 'CarryOrder',
+  validate({ params }) {
+    return params.type === 'send' || params.type === 'carry'
+  },
   components: { CreateOrder },
   data() {
     return {

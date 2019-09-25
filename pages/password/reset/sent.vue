@@ -43,6 +43,9 @@ import SpacerItem from '../../../components/SpacerItem'
 
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'ResetPasswordSent',
   components: { SpacerItem },
   methods: {

@@ -107,6 +107,9 @@ import DefaultFooter from '../components/DefaultFooter'
 
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'Home',
   components: { SpacerItem, DefaultFooter },
   methods: {

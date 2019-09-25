@@ -43,6 +43,9 @@ import SpacerItem from '../components/SpacerItem'
 
 export default {
   auth: true,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'Welcome',
   components: {
     SpacerItem

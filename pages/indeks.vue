@@ -32,6 +32,9 @@ import Logo from '~/components/Logo.vue'
 
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   components: {
     Logo
   },

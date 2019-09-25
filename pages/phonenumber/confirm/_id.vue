@@ -30,6 +30,10 @@
 import SpacerItem from '@/components/SpacerItem'
 
 export default {
+  auth: true,
+  meta: {
+    auth: { authority: 1 }
+  },
   name: 'ConfirmPhoneNumber',
   components: { SpacerItem },
   props: {

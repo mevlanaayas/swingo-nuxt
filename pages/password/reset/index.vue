@@ -49,6 +49,9 @@
 <script>
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'ForgotPassword',
   data() {
     const validateEmail = (rule, value, callback) => {

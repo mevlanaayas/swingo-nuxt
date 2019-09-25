@@ -5,6 +5,9 @@
 <script>
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'ConfirmEmail',
   created() {
     const confirmationId = this.$router.history.current.params.id

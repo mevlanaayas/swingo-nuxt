@@ -22,5 +22,11 @@ export default {
     'mobile-terms',
     'index'
   ],
-  DEFAULT_HEADER_DISABLED_ROUTES: ['welcome', 'orders-type', 'send', 'carry']
+  DEFAULT_HEADER_DISABLED_ROUTES: [
+    'welcome',
+    'orders-type',
+    'orders-create-type',
+    'send',
+    'carry'
+  ]
 }

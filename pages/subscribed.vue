@@ -24,6 +24,9 @@
 <script>
 export default {
   auth: false,
+  meta: {
+    auth: { authority: 2 }
+  },
   name: 'Subscribed',
   methods: {
     letMeLogin() {

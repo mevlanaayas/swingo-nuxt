@@ -189,6 +189,7 @@
               </el-input>
             </el-form-item>
 
+            <!--
             <div class="term-notify">
               <span>
                 By clicking "Create order" below, you agree to Swingo's Terms
@@ -202,6 +203,7 @@
                 </nuxt-link>
               </span>
             </div>
+            -->
 
             <spacer-item space="20"></spacer-item>
 

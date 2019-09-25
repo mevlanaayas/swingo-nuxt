@@ -45,7 +45,7 @@ export default {
     '@/plugins/swal.client.js',
     '@/plugins/axios.js',
     '@/plugins/filters.js'
-    // '@/plugins/route-controller.client.js'
+    // '@/plugins/router.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -74,6 +74,11 @@ export default {
     '/swingo': process.env.API || 'http://localhost:8000'
   },
   auth: {
+    redirect: {
+      login: '/login',
+      home: '/welcome',
+      logout: '/login'
+    },
     strategies: {
       local: {
         endpoints: {
@@ -86,7 +91,7 @@ export default {
           user: {
             url: '/swingo/auth/user',
             method: 'get',
-            propertyName: 'username'
+            propertyName: false
           }
         },
         // tokenRequired: true,
@@ -95,7 +100,7 @@ export default {
     }
   },
   router: {
-    middleware: ['auth']
+    middleware: ['auth', 'router']
   },
   /*
    ** Axios module configuration
