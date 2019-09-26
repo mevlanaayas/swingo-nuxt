@@ -25,6 +25,31 @@
 import SpacerItem from '../../components/SpacerItem'
 
 export default {
+  head() {
+    return {
+      title: 'Swingo | Products',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'See the best products to Send or Carry @Swingo'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Swingo Products'
+        },
+        {
+          name: 'twitter:description',
+          content: 'See the best products to Send or Carry'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

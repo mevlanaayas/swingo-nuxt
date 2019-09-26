@@ -134,6 +134,40 @@ import EmptyListPlaceHolder from '@/components/EmptyListPlaceHolder'
 import CONSTANTS from '@/utils/constants'
 
 export default {
+  head() {
+    return {
+      title:
+        'Swingo | ' + this.$route.params.type === 'send'
+          ? 'Senders'
+          : 'Carriers',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            this.$route.params.type === 'send'
+              ? 'List of Senders @Swingo. Find one and earn money while travelling'
+              : 'List of Carriers @Swingo. Find one and enjoy fast and reliable travelling'
+        },
+        {
+          name: 'twitter:title',
+          content: this.$route.params.type === 'send' ? 'Senders' : 'Carriers'
+        },
+        {
+          name: 'twitter:description',
+          content:
+            this.$route.params.type === 'send'
+              ? 'List of Senders @Swingo'
+              : 'List of Carriers @Swingo'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

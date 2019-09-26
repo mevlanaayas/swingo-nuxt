@@ -106,6 +106,33 @@ import SpacerItem from '../components/SpacerItem'
 import DefaultFooter from '../components/DefaultFooter'
 
 export default {
+  head() {
+    return {
+      title: 'Swingo | Seamless Delivery',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Smart way of Delivery. Senders, Carriers and Packages all are on the same platform on base of Fast and Reliable delivery.'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Swingo, Smart way of delivery'
+        },
+        {
+          name: 'twitter:description',
+          content:
+            'Smart way of Delivery. Senders, Carriers and Packages all are on the same platform'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

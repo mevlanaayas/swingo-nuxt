@@ -16,6 +16,31 @@
 <script>
 import SpacerItem from '../../../components/SpacerItem'
 export default {
+  head() {
+    return {
+      title: 'Swingo | Guarantee',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Explore Swingo guarantee details'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Swingo Guarantee'
+        },
+        {
+          name: 'twitter:description',
+          content: 'Explore Swingo guarantee details'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

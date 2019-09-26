@@ -37,6 +37,31 @@ import SpacerItem from '../../components/SpacerItem'
 import cities from '../../utils/cities'
 
 export default {
+  head() {
+    return {
+      title: 'Swingo | Locations',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'See our active locations to Send or Carry'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Swingo Locations'
+        },
+        {
+          name: 'twitter:description',
+          content: 'See our active locations to Send or Carry'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

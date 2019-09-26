@@ -68,6 +68,31 @@
 import SpacerItem from '../components/SpacerItem'
 
 export default {
+  head() {
+    return {
+      title: 'Swingo | Welcome Back',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Login and Continue to explore best delivery experience'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Login and Keep winning'
+        },
+        {
+          name: 'twitter:description',
+          content: 'Login and Continue to explore best delivery experience'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   meta: {
     auth: { authority: 0 }
   },

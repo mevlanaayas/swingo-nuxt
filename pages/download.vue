@@ -91,6 +91,31 @@
 import SpacerItem from '../components/SpacerItem'
 
 export default {
+  head() {
+    return {
+      title: 'Swingo | Download',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'With Swingo mobile, keep exploring while away from keyboard'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Explore Swingo mobile apps'
+        },
+        {
+          name: 'twitter:description',
+          content: 'With Swingo mobile, keep exploring while away from keyboard'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

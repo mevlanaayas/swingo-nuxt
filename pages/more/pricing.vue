@@ -13,6 +13,31 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Swingo | Pricing',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'See how Swingo calculating delivery price'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Swingo Pricing'
+        },
+        {
+          name: 'twitter:description',
+          content: 'See how Swingo calculating delivery price'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }

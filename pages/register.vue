@@ -205,6 +205,33 @@ import { mapMutations, mapGetters } from 'vuex'
 import SpacerItem from '../components/SpacerItem'
 
 export default {
+  head() {
+    return {
+      title: 'Swingo | Join us',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Join us to Send or Carry package. Enjoy the fast and reliable delivery'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Join us and explore Swingo'
+        },
+        {
+          name: 'twitter:description',
+          content:
+            'Join us to Send or Carry package. Enjoy the fast and reliable delivery'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 0 }

@@ -460,6 +460,31 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Swingo | Terms Mobile Version',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Explore Mobile Terms @Swingo'
+        },
+        {
+          name: 'twitter:title',
+          content: 'Swingo Terms Mobile Version'
+        },
+        {
+          name: 'twitter:description',
+          content: 'Explore Terms @Swingo'
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTa7p9dP3luG09tHmTWk8WqqZ-LCuUt2H3y9veP5FAAYbkrMRk'
+        }
+      ]
+    }
+  },
   auth: false,
   meta: {
     auth: { authority: 2 }
