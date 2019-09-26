@@ -136,10 +136,10 @@
               <el-card shadow="never" class="chat-message-container">
                 <el-row v-for="msg in messages" :key="msg.createdAt.$date">
                   <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16">
-                    <span style="font-size: 20px; color: grey">{{
-                      msg.createdBy
-                    }}</span
-                    >:&nbsp;&nbsp;{{ msg.message }}
+                    <span style="font-size: 20px; color: grey">
+                      {{ msg.createdBy }}
+                    </span>
+                    :&nbsp;&nbsp;{{ msg.message }}
                   </el-col>
                   <el-col
                     style="text-align: right !important;"
@@ -170,7 +170,7 @@
                 </el-form-item>
                 <el-form-item style="float: right !important;">
                   <el-button type="primary" @click="sendMessage">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;&nbsp;
+                    Send
                   </el-button>
                 </el-form-item>
               </el-form>
@@ -362,10 +362,10 @@ export default {
     let params = { id: ctx.params.id }
     const match = await ctx.app.$repository.RetrieveMatch({ params })
     params = params = { id: match.chat_room_id }
-    const messages = ctx.app.$repository.ListChatMessages({ params })
+    const messages = await ctx.app.$repository.ListChatMessages({ params })
     return {
       match,
-      messages,
+      messages: messages.messages,
       chatRoom: messages.chatRoom
     }
   },
@@ -382,11 +382,7 @@ export default {
       this.messages.push(data)
     })
     this.socket.on('UPDATE_MATCH', (data) => {
-      this.$notify.info({
-        title: 'Update match status',
-        message: data,
-        offset: 60
-      })
+      this.match.status = data.status
     })
   },
   methods: {
@@ -407,11 +403,6 @@ export default {
         message: this.message,
         roomId: this.match.chat_room_id
       })
-      this.socket.emit('UPDATE_MATCH', {
-        username: this.username,
-        status: 'Updated',
-        roomId: this.match.chat_room_id
-      })
       this.message = ''
     },
     sendRating() {
@@ -421,18 +412,17 @@ export default {
             params: { id: this.match.id, rating: this.value }
           })
           .then((response) => {
-            if (response.data.isSuccessful) {
+            if (response.isSuccessful) {
               this.$swal.fire({
                 title: 'Successful!',
                 text: '',
                 type: 'success',
-                onOpen: this.alertOpened,
                 timer: 4000
               })
             } else {
               this.$notify.error({
                 title: 'Error',
-                message: response.data.msg,
+                message: response.msg,
                 offset: 60
               })
             }
@@ -443,18 +433,17 @@ export default {
             params: { id: this.match.id, rating: this.value }
           })
           .then((response) => {
-            if (response.data.isSuccessful) {
+            if (response.isSuccessful) {
               this.$swal.fire({
                 title: 'Successful!',
                 text: '',
                 type: 'success',
-                onOpen: this.alertOpened,
                 timer: 4000
               })
             } else {
               this.$notify.error({
                 title: 'Error',
-                message: response.data.msg,
+                message: response.msg,
                 offset: 60
               })
             }
@@ -480,18 +469,17 @@ export default {
           params: { id: this.match.id, code: this.takingCode }
         })
         .then((response) => {
-          if (response.data.isSuccessful) {
+          if (response.isSuccessful) {
             this.$swal.fire({
               title: 'Successful!',
               text: '',
               type: 'success',
-              onOpen: this.alertOpened,
               timer: 4000
             })
           } else {
             this.$notify.error({
               title: 'Error',
-              message: response.data.msg,
+              message: response.msg,
               offset: 60
             })
           }
@@ -504,18 +492,17 @@ export default {
           params: { id: this.match.id, code: this.confirmationCode }
         })
         .then((response) => {
-          if (response.data.isSuccessful) {
+          if (response.isSuccessful) {
             this.$swal.fire({
               title: 'Successful!',
               text: '',
               type: 'success',
-              onOpen: this.alertOpened,
               timer: 4000
             })
           } else {
             this.$notify.error({
               title: 'Error',
-              message: response.data.msg,
+              message: response.msg,
               offset: 60
             })
           }
@@ -523,7 +510,7 @@ export default {
     },
     next() {
       const self = this
-      this.$repository
+      this.$swal
         .fire({
           title: 'Are you sure?',
           text: 'You cant undo this action.',
@@ -541,18 +528,17 @@ export default {
                 this.$repository
                   .BoxIsOk({ params: { id: this.match.id } })
                   .then((response) => {
-                    if (response.data.isSuccessful) {
+                    if (response.isSuccessful) {
                       this.$swal.fire({
                         title: 'Successful!',
                         text: '',
                         type: 'success',
-                        onOpen: this.alertOpened,
                         timer: 4000
                       })
                     } else {
                       self.$notify.error({
                         title: 'Error',
-                        message: response.data.msg,
+                        message: response.msg,
                         offset: 60
                       })
                     }
@@ -562,18 +548,17 @@ export default {
                 this.$repository
                   .BoxIsOk({ params: { id: this.match.id } })
                   .then((response) => {
-                    if (response.data.isSuccessful) {
+                    if (response.isSuccessful) {
                       this.$swal.fire({
                         title: 'Successful!',
                         text: '',
                         type: 'success',
-                        onOpen: this.alertOpened,
                         timer: 4000
                       })
                     } else {
                       self.$notify.error({
                         title: 'Error',
-                        message: response.data.msg,
+                        message: response.msg,
                         offset: 60
                       })
                     }
@@ -583,18 +568,17 @@ export default {
                 this.$repository
                   .LetMeTakeBox({ params: { id: this.match.id } })
                   .then((response) => {
-                    if (response.data.isSuccessful) {
+                    if (response.isSuccessful) {
                       this.$swal.fire({
                         title: 'Successful!',
                         text: '',
                         type: 'success',
-                        onOpen: this.alertOpened,
                         timer: 4000
                       })
                     } else {
                       self.$notify.error({
                         title: 'Error',
-                        message: response.data.msg,
+                        message: response.msg,
                         offset: 60
                       })
                     }
@@ -604,18 +588,17 @@ export default {
                 this.$repository
                   .WeAreOk({ params: { id: this.match.id } })
                   .then((response) => {
-                    if (response.data.isSuccessful) {
+                    if (response.isSuccessful) {
                       this.$swal.fire({
                         title: 'Successful!',
                         text: '',
                         type: 'success',
-                        onOpen: this.alertOpened,
                         timer: 4000
                       })
                     } else {
                       self.$notify.error({
                         title: 'Error',
-                        message: response.data.msg,
+                        message: response.msg,
                         offset: 60
                       })
                     }
@@ -625,18 +608,17 @@ export default {
                 this.$repository
                   .LetMeDeliver({ params: { id: this.match.id } })
                   .then((response) => {
-                    if (response.data.isSuccessful) {
+                    if (response.isSuccessful) {
                       this.$swal.fire({
                         title: 'Successful!',
                         text: '',
                         type: 'success',
-                        onOpen: this.alertOpened,
                         timer: 4000
                       })
                     } else {
                       self.$notify.error({
                         title: 'Error',
-                        message: response.data.msg,
+                        message: response.msg,
                         offset: 60
                       })
                     }
@@ -646,18 +628,17 @@ export default {
                 this.$repository
                   .IHaveACode({ params: { id: this.match.id } })
                   .then((response) => {
-                    if (response.data.isSuccessful) {
+                    if (response.isSuccessful) {
                       this.$swal.fire({
                         title: 'Successful!',
                         text: '',
                         type: 'success',
-                        onOpen: this.alertOpened,
                         timer: 4000
                       })
                     } else {
                       self.$notify.error({
                         title: 'Error',
-                        message: response.data.msg,
+                        message: response.msg,
                         offset: 60
                       })
                     }
@@ -676,12 +657,6 @@ export default {
           }
         })
     },
-    alertOpened() {
-      this.updateMatch()
-      setTimeout(() => {
-        this.retrieveMatch()
-      }, 1000)
-    },
     accept() {
       const self = this
       this.$swal
@@ -699,18 +674,17 @@ export default {
             this.$repository
               .AcceptMatch({ params: { id: this.match.id } })
               .then((response) => {
-                if (response.data.isSuccessful) {
+                if (response.isSuccessful) {
                   this.$swal.fire({
                     title: 'Accepted!',
                     text: '',
                     type: 'success',
-                    onOpen: this.alertOpened(),
                     timer: 2000
                   })
                 } else {
                   self.$notify.error({
                     title: 'Error',
-                    message: response.data.msg,
+                    message: response.msg,
                     offset: 60
                   })
                 }
@@ -735,7 +709,7 @@ export default {
             this.$repository
               .RejectMatch({ params: { id: this.match.id } })
               .then((response) => {
-                if (response.data.isSuccessful) {
+                if (response.isSuccessful) {
                   this.$swal.fire({
                     title: 'Rejected!',
                     text: '',
@@ -746,23 +720,13 @@ export default {
                 } else {
                   self.$notify.error({
                     title: 'Error',
-                    message: response.data.msg,
+                    message: response.msg,
                     offset: 60
                   })
                 }
               })
           }
         })
-    },
-    updateMatch() {
-      this.$notify.error({
-        title: 'Update match with id',
-        message: this.match.chat_room_id,
-        offset: 60
-      })
-      this.socket.emit('UPDATE_MATCH', {
-        roomId: this.match.chat_room_id
-      })
     }
   }
 }
